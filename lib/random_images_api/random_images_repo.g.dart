@@ -6,7 +6,7 @@ part of 'random_images_repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$randomImageHash() => r'1bf8e8eae2fbfccb5d42f18182d6399ec5569521';
+String _$randomImageHash() => r'f6bcd9212ec01b109b55f8fd4da2fe53d1d1aefb';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,10 +31,12 @@ class _SystemHash {
 
 abstract class _$RandomImage
     extends BuildlessAutoDisposeAsyncNotifier<RandomImageModel> {
-  late final AbstractSimpleParameters params;
+  late final SimpleParameters params;
+  late final String urlPart;
 
   FutureOr<RandomImageModel> build({
-    required AbstractSimpleParameters params,
+    required SimpleParameters params,
+    required String urlPart,
   });
 }
 
@@ -49,10 +51,12 @@ class RandomImageFamily extends Family<AsyncValue<RandomImageModel>> {
 
   /// See also [RandomImage].
   RandomImageProvider call({
-    required AbstractSimpleParameters params,
+    required SimpleParameters params,
+    required String urlPart,
   }) {
     return RandomImageProvider(
       params: params,
+      urlPart: urlPart,
     );
   }
 
@@ -62,6 +66,7 @@ class RandomImageFamily extends Family<AsyncValue<RandomImageModel>> {
   ) {
     return call(
       params: provider.params,
+      urlPart: provider.urlPart,
     );
   }
 
@@ -85,9 +90,12 @@ class RandomImageProvider extends AutoDisposeAsyncNotifierProviderImpl<
     RandomImage, RandomImageModel> {
   /// See also [RandomImage].
   RandomImageProvider({
-    required AbstractSimpleParameters params,
+    required SimpleParameters params,
+    required String urlPart,
   }) : this._internal(
-          () => RandomImage()..params = params,
+          () => RandomImage()
+            ..params = params
+            ..urlPart = urlPart,
           from: randomImageProvider,
           name: r'randomImageProvider',
           debugGetCreateSourceHash:
@@ -98,6 +106,7 @@ class RandomImageProvider extends AutoDisposeAsyncNotifierProviderImpl<
           allTransitiveDependencies:
               RandomImageFamily._allTransitiveDependencies,
           params: params,
+          urlPart: urlPart,
         );
 
   RandomImageProvider._internal(
@@ -108,9 +117,11 @@ class RandomImageProvider extends AutoDisposeAsyncNotifierProviderImpl<
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.params,
+    required this.urlPart,
   }) : super.internal();
 
-  final AbstractSimpleParameters params;
+  final SimpleParameters params;
+  final String urlPart;
 
   @override
   FutureOr<RandomImageModel> runNotifierBuild(
@@ -118,6 +129,7 @@ class RandomImageProvider extends AutoDisposeAsyncNotifierProviderImpl<
   ) {
     return notifier.build(
       params: params,
+      urlPart: urlPart,
     );
   }
 
@@ -126,13 +138,16 @@ class RandomImageProvider extends AutoDisposeAsyncNotifierProviderImpl<
     return ProviderOverride(
       origin: this,
       override: RandomImageProvider._internal(
-        () => create()..params = params,
+        () => create()
+          ..params = params
+          ..urlPart = urlPart,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         params: params,
+        urlPart: urlPart,
       ),
     );
   }
@@ -145,13 +160,16 @@ class RandomImageProvider extends AutoDisposeAsyncNotifierProviderImpl<
 
   @override
   bool operator ==(Object other) {
-    return other is RandomImageProvider && other.params == params;
+    return other is RandomImageProvider &&
+        other.params == params &&
+        other.urlPart == urlPart;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, params.hashCode);
+    hash = _SystemHash.combine(hash, urlPart.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -159,7 +177,10 @@ class RandomImageProvider extends AutoDisposeAsyncNotifierProviderImpl<
 
 mixin RandomImageRef on AutoDisposeAsyncNotifierProviderRef<RandomImageModel> {
   /// The parameter `params` of this provider.
-  AbstractSimpleParameters get params;
+  SimpleParameters get params;
+
+  /// The parameter `urlPart` of this provider.
+  String get urlPart;
 }
 
 class _RandomImageProviderElement
@@ -168,7 +189,9 @@ class _RandomImageProviderElement
   _RandomImageProviderElement(super.provider);
 
   @override
-  AbstractSimpleParameters get params => (origin as RandomImageProvider).params;
+  SimpleParameters get params => (origin as RandomImageProvider).params;
+  @override
+  String get urlPart => (origin as RandomImageProvider).urlPart;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

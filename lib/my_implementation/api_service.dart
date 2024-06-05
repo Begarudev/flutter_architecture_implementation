@@ -24,13 +24,13 @@ ApiService apiService(ApiServiceRef ref) {
 
 class ApiService {
   final ApiClient apiClient;
-    Future? ongoingRequest;
+  Future? ongoingRequest;
 
   ApiService({required this.apiClient});
 
   Future<T> fetchData<T>({
     required String url,
-    required T Function(Map<String, dynamic>) fromJson,
+    required T Function(String) fromJson,
     Map<String, String>? headers,
     Map<String, String>? params,
     bool allowConcurrentRequests = false,
@@ -51,7 +51,7 @@ class ApiService {
 
   Future<T> postData<T>(
       {required String url,
-      required T Function(Map<String, dynamic>) fromJson,
+      required T Function(String) fromJson,
       Map<String, String>? headers,
       Map<String, dynamic>? body}) async {
     final response =
@@ -61,7 +61,7 @@ class ApiService {
 
   Future<T> putData<T>(
       {required String url,
-      required T Function(Map<String, dynamic>) fromJson,
+      required T Function(String) fromJson,
       Map<String, String>? headers,
       Map<String, dynamic>? body}) async {
     final response =
@@ -71,7 +71,7 @@ class ApiService {
 
   Future<T> deleteData<T>(
       {required String url,
-      required T Function(Map<String, dynamic>) fromJson,
+      required T Function(String) fromJson,
       Map<String, String>? headers,
       Map<String, dynamic>? body}) async {
     final response =

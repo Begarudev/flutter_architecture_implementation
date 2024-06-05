@@ -10,37 +10,37 @@ class SimpleParameters extends AbstractSimpleParameters {
   @protected
   Map<String, dynamic> body = {};
   @protected
-  Map<String, Object> queryParams = {};
+  Map<String, String> queryParams = {};
   @protected
   Map<String, int> pathParams = {};
   @protected
   Map<String, String> files = {};
 
-  // @override
-  // bool operator ==(Object other) {
-  //   if (identical(this, other)) return true;
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-  //   return other is SimpleParameters &&
-  //       const DeepCollectionEquality().equals(headers, other.headers) &&
-  //       const DeepCollectionEquality().equals(body, other.body) &&
-  //       const DeepCollectionEquality().equals(queryParams, other.queryParams) &&
-  //       const DeepCollectionEquality().equals(pathParams, other.pathParams) &&
-  //       const DeepCollectionEquality().equals(files, other.files) &&
-  //       paginatedOverridenUrl == other.paginatedOverridenUrl;
-  // }
+    return other is SimpleParameters &&
+        const DeepCollectionEquality().equals(headers, other.headers) &&
+        const DeepCollectionEquality().equals(body, other.body) &&
+        const DeepCollectionEquality().equals(queryParams, other.queryParams) &&
+        const DeepCollectionEquality().equals(pathParams, other.pathParams) &&
+        const DeepCollectionEquality().equals(files, other.files) &&
+        paginatedOverridenUrl == other.paginatedOverridenUrl;
+  }
 
-  // @override
-  // int get hashCode {
-  //   return headers.hashCode ^
-  //       body.hashCode ^
-  //       queryParams.hashCode ^
-  //       pathParams.hashCode ^
-  //       files.hashCode ^
-  //       paginatedOverridenUrl.hashCode;
-  // }
+  @override
+  int get hashCode {
+    return const DeepCollectionEquality().hash(headers) ^
+        const DeepCollectionEquality().hash(body) ^
+        const DeepCollectionEquality().hash(queryParams) ^
+        const DeepCollectionEquality().hash(pathParams) ^
+        const DeepCollectionEquality().hash(files) ^
+        paginatedOverridenUrl.hashCode;
+  }
 
-//  @protected
-//  String? suburl;
+  //  @protected
+  //  String? suburl;
   @protected
   String? paginatedOverridenUrl;
 
